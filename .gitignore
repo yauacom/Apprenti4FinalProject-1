@@ -1,0 +1,8 @@
+src/main/resources/static/bundle.js
+node_modules/*
+yarn.lock
+.DS_store
+.bundle
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

@@ -5,10 +5,10 @@ const path = require('path')
 
 module.exports = {
   entry: {
-    path: './src/main.js'
+    path: './main.js'
   },
   output: {
-    path: path.join(__dirname, '../../resources/static'),
+    path: path.join(__dirname, '../resources/static'),
     filename: "bundle.js"
   },
   module: {
