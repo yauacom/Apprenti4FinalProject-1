@@ -1,9 +1,10 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 
 import javax.persistence.*;
 
@@ -15,15 +16,13 @@ import javax.persistence.*;
 public class Review {
 
     @Id
-    @SequenceGenerator()
-    @GeneratedValue()
+    @SequenceGenerator(name ="reviews_id_generator", sequenceName = "reviews_id_seq", allocationSize =1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reviews_id_seq")
     @Column
     private Integer id;
 
-    @ManyToOne
     @Column
-    @JsonIgnoreProperties("reviews")
-    private Username username;
+    private String username;
 
     @Column
     private Integer rating;
@@ -32,7 +31,7 @@ public class Review {
     private String comment;
 
     @ManyToOne
-    @Column
+    @JoinColumn(name="movie_id")
     @JsonIgnoreProperties("reviews")
     private Movies movie;
 }

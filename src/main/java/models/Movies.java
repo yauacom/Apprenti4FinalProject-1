@@ -1,12 +1,12 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,8 +17,8 @@ import java.util.List;
 public class Movies {
 
     @Id
-    @SequenceGenerator()
-    @GeneratedValue()
+    @SequenceGenerator(name = "movies_id_generator", sequenceName = "movies_id_seq", allocationSize =1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "movies_id_generator")
     @Column
     private Integer id;
 
@@ -28,10 +28,12 @@ public class Movies {
     @Column
     private String genre;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "movies", cascade = CascadeType.ALL)
     @Column
-    @JsonIgnoreProperties("movies")
-    private List<Review> reviews = new ArrayList<>();
+    private String imgUrl;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "movie", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("movie")
+    private List<Review> reviews;
 
     @Column
     private String description;

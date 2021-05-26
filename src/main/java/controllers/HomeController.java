@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
-    @GetMapping(value={"/", "/movies/", "/movies/{id}", "/movies/{id}/reviews}", "/newmovie"})
+    @GetMapping(value={"/", "/movies/", "/movies/new", "/movies/{id}"})
     public String forward() {
         return "forward:/index.html";
     }

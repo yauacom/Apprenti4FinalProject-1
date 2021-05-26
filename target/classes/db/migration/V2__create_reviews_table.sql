@@ -1,0 +1,7 @@
+CREATE TABLE reviews (
+id SERIAL PRIMARY KEY,
+rating INTEGER NOT NULL,
+comment TEXT,
+username VARCHAR(255) UNIQUE NOT NULL,
+movie_id INTEGER REFERENCES movies(id)
+);
