@@ -9,6 +9,8 @@ import {
   faUndo,
 } from "@fortawesome/free-solid-svg-icons";
 
+import Alert from "./Alert.js";
+
 const NewMovie = (props) => {
   let initialState = {
     title: "",
@@ -22,6 +24,7 @@ const NewMovie = (props) => {
   const { title, description, imgUrl, genre } = newMovie;
 
   const [redirect, setRedirect] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleChange = (event) => {
     setNewMovie({
@@ -55,6 +58,7 @@ const NewMovie = (props) => {
       } else {
         const data = await response.json();
         if (data) {
+          setShowAlert(true);
           setRedirect(true);
           handleReset();
         }
@@ -77,8 +81,11 @@ const NewMovie = (props) => {
   }
 
   return (
-    <div>
-      <Container className="mt-4">
+    <>
+      <div style={{ display: showAlert ? "block" : "none" }}>
+        <Alert />
+      </div>
+      <Container style={{ marginTop: "8.5rem" }}>
         <Card>
           <Card.Header className="border border-dark bg-dark text-white">
             <FontAwesomeIcon icon={faPlusSquare} /> Add new movie
@@ -174,7 +181,7 @@ const NewMovie = (props) => {
           </Form>
         </Card>
       </Container>
-    </div>
+    </>
   );
 };
 

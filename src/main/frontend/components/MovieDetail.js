@@ -1,29 +1,56 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button, Container } from "react-bootstrap";
 
-const MovieTile = () => {
+const MovieTile = (props) => {
+  const [movie, setMovie] = useState([]);
+  const [showForm, setShowForm] = useState(false);
+  const [afterSubmission, setAfterSubmission] = useState(false);
+
+  const getMovie = async () => {
+    try {
+      const movieId = props.match.params.id;
+      const response = await fetch(`/api/v1/movies/${movieId}`);
+      if (!response.ok) {
+        const errorMessage = `${response.status} (${response.statusText})`;
+        const error = new Error(errorMessage);
+        throw error;
+      }
+      const responseBody = await response.json();
+      setMovie(responseBody);
+    } catch (err) {
+      console.error(`Error in Fetch: ${err.message}`);
+    }
+  };
+
+  useEffect(() => {
+    getMovie();
+  }, []);
+
+  const { title, genre, description, imgUrl, reviews } = movie;
+
   return (
-    <div className="mt-4">
-      <Row>
-        <Col lg={3}>
-          <Button className="success"> Write a Review</Button>
-        </Col>
-        <Col lg={9}>
-          <h2>Star Wars: The Rise of Skywalker</h2>
-          <iframe
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/8Qn_spdM5Zg"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-          <p>Description</p>
-        </Col>
-      </Row>
-    </div>
+    <>
+      <Container className="mt-4">
+        <Row>
+          <Col lg={3}>
+            <Button className="success"> Write a Review</Button>
+          </Col>
+          <Col lg={9}>
+            <Container>
+              <img
+                src={imgUrl}
+                alt={title}
+                style={{ width: "100%", height: "450px" }}
+              ></img>
+              <h2>{title}</h2>
+              <p>{genre}</p>
+              <p>{description}</p>
+            </Container>
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 };
 

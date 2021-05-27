@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faList } from "@fortawesome/free-solid-svg-icons";
 
 import MovieTile from "./MovieTile.js";
+import MovieDetail from "./MovieDetail.js";
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
@@ -32,8 +33,12 @@ const MovieList = () => {
     return <MovieTile key={movie.id} movie={movie} />;
   });
 
+  movies.map((movie) => {
+    return <MovieDetail key={movie.id} movie={movie} />;
+  });
+
   return (
-    <div>
+    <>
       <Container className="mt-4">
         <Card>
           <Card.Header className="border border-dark bg-dark text-white">
@@ -44,7 +49,7 @@ const MovieList = () => {
           </Card.Body>
         </Card>
       </Container>
-    </div>
+    </>
   );
 };
 
