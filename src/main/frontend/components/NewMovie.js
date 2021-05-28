@@ -47,6 +47,7 @@ const NewMovie = (props) => {
         body: JSON.stringify(newMovie),
       });
       if (!response.ok) {
+        setShowAlert(false);
         if (response.status === 422) {
           const data = await response.json();
           return setErrors(data.errors);
@@ -57,10 +58,11 @@ const NewMovie = (props) => {
         }
       } else {
         const data = await response.json();
+        setShowAlert(true);
+        handleReset();
+        setTimeout(() => setShowAlert(false), 2000);
         if (data) {
-          setShowAlert(true);
           setRedirect(true);
-          handleReset();
         }
       }
     } catch (error) {
@@ -70,10 +72,10 @@ const NewMovie = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    alert(
-      `title: ${title}, genre: ${genre}, imgUrl: ${imgUrl}, description: ${description}`
-    );
     addNewMovie();
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 2000);
+    handleReset();
   };
 
   if (redirect) {
@@ -83,7 +85,7 @@ const NewMovie = (props) => {
   return (
     <>
       <div style={{ display: showAlert ? "block" : "none" }}>
-        <Alert />
+        <Alert show={showAlert} message={"Movie Saved SuccessFully"} />
       </div>
       <Container style={{ marginTop: "8.5rem" }}>
         <Card>

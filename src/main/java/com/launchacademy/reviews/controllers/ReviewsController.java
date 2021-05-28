@@ -2,6 +2,7 @@ package com.launchacademy.reviews.controllers;
 
 import com.launchacademy.reviews.models.Movie;
 import com.launchacademy.reviews.models.Review;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.launchacademy.reviews.services.MoviesService;
@@ -25,33 +26,14 @@ public class ReviewsController {
         return moviesService.findById(id);
     }
 
+    @GetMapping("/reviews")
+    public List<Review> findReviewsByMovieId(@PathVariable Integer id) {
+        Movie movie = moviesService.findById(id);
+        return reviewsService.findReviewsByMovieId(movie.getId());
+    }
+
     @PostMapping
     public void addReview(@RequestBody Review review) {
         reviewsService.add(review);
     }
-
-
-//    @GetMapping
-//    public List<Review> showReviews(@PathVariable Integer id) {
-//        List<Review> reviews = reviewsService.findReviewsByMovieId(id);
-//        return reviews;
-//    }
-
-//    @GetMapping
-//    public Movie showMovie(@PathVariable Integer id){
-//        return moviesService.findById(id);
-//    }
-
-  //    private List<Review> showReviews(@PathVariable Integer id) {
-//        List<Review> reviews = reviewsService.findReviewsByMovieId(id);
-//        return reviews;
-//    }
-//
-//    @GetMapping
-//    public HashMap<Movie, List> showMovie(@PathVariable Integer id){
-//        HashMap<Movie, List> showPage = new HashMap<>();
-//        List<Review> reviews = showReviews(id);
-//        showPage.put(moviesService.findById(id), reviews);
-//        return showPage;
-//    }
 }

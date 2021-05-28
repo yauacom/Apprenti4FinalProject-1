@@ -6,6 +6,7 @@ import { faList } from "@fortawesome/free-solid-svg-icons";
 
 import MovieTile from "./MovieTile.js";
 import MovieDetail from "./MovieDetail.js";
+import ReviewList from "./ReviewList.js";
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
@@ -31,10 +32,6 @@ const MovieList = () => {
 
   const movieObjects = movies.map((movie) => {
     return <MovieTile key={movie.id} movie={movie} />;
-  });
-
-  movies.map((movie) => {
-    return <MovieDetail key={movie.id} movie={movie} />;
   });
 
   return (
