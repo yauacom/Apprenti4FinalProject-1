@@ -3,6 +3,8 @@ import React from "react";
 import { Toast } from "react-bootstrap";
 
 const Alert = (props) => {
+  const { show, message } = props;
+
   const toastCss = {
     position: "fixed",
     top: "80px",
@@ -13,12 +15,12 @@ const Alert = (props) => {
   };
 
   return (
-    <div style={toastCss}>
-      <Toast className={"border border-success"}>
+    <div style={show ? toastCss : null}>
+      <Toast className={"border border-success"} show={show}>
         <Toast.Header className={"bg-success text-white"} closeButton="{false}">
           <strong className="mr-auto">Success</strong>
         </Toast.Header>
-        <Toast.Body>Movie Saved SuccessFully</Toast.Body>
+        <Toast.Body>{message}</Toast.Body>
       </Toast>
     </div>
   );

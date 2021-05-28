@@ -7,7 +7,7 @@ const Footer = () => {
 
   return (
     <>
-      <Navbar fixed="bottom" bg="dark" variant="dark">
+      <Navbar fixed="bottom" bg="dark" variant="dark" id="footer">
         <Container>
           <Col lg={12} className="text-center text-muted">
             <div>
